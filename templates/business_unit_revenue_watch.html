@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Unit Revenue Data Entry</h1>
+
+        <h2>Add Unit Revenue Scheme</h2>
+        <form action="/add_revenue_unit" method="POST">
+            <input type="number" id="year" name="year" placeholder="Enter Year" required>
+            <input type="text" id="unit" name="unit" placeholder="Enter unit" required>
+            <input type="number" id="sales" name="sales" placeholder="Enter Unit Sales" required>
+            <input type="number" id="ancillary" name="ancillary" placeholder="Enter Unit Ancillary" required>
+            <button type="submit">Add Unit</button>
+        </form>
+
+        <br>
+
+        <h2>Units Revenue Scheme</h2>
+        
+
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Unit</th>                  
+                            <th>Sales</th>
+                            <th>Ancillary</th>
+                            <th>EDIT</th>
+                            <th>DELETE</th>
+                        
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for element in units %}
+                        
+                        <tr>
+                            <td>{{ element[1] }}</td>
+                        
+                            <td>{{ element[2] }}</td>
+                        
+                            <td>{{ element[3] }}&nbsp;€</td>
+
+                            <td>{{ element[4] }}&nbsp;€</td>
+                        
+
+                            <td>
+                                <a href="{{ url_for('update_revenue_unit_route', id=element[0]) }}">Edit</a>
+                            </td>
+                            <td>
+                                <a href="{{ url_for('delete_revenue_unit_route', id=element[0]) }}" class="delete-link">Delete</a>
+                            </td>
+                        </tr>
+                        
+
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+        <br>
+        <br> 
+        <br>
+        <br> 
+        <br>
+        <br>        
+
+        <a href="{{ url_for('start_page') }}">Back to start page</a>
+        
+    </div>
+</body>
+</html>
+

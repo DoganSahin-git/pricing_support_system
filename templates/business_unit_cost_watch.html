@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Unit Cost Entry</h1>
+
+        <h2>Add Unit Cost Scheme</h2>
+        <form action="/add_unit" method="POST">
+            <input type="number" id="year" name="year" placeholder="Enter Year" required>
+            <input type="text" id="unit" name="unit" placeholder="Enter unit" required>
+            <input type="number" id="facilities" name="facilities" placeholder="Enter Unit Facilities Cost" required>
+            <input type="number" id="workforce" name="workforce" placeholder="Enter Unit Workforce Cost" required>
+            <input type="number" id="vehicles" name="vehicles" placeholder="Enter Unit Vehicles Valuation" required>
+            <button type="submit">Add Unit</button>
+        </form>
+
+        <br>
+
+        <h2>Units Cost Scheme</h2>
+        
+
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Unit</th>                  
+                            <th>Facilities</th>
+                            <th>Workforce</th>
+                            <th>Vehicles</th>
+                            <th>EDIT</th>
+                            <th>DELETE</th>
+                        
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for unit in units %}
+                        
+                        <tr>
+                            <td>{{ unit[1] }}</td>
+                        
+                        
+                            <td>{{ unit[2] }}</td>
+                        
+                        
+                            <td>{{ unit[3] }}&nbsp;€</td>
+                        
+                        
+                            <td>{{ unit[4] }}&nbsp;€</td>
+                        
+                        
+                            <td>{{ unit[5] }}&nbsp;€</td>
+                        
+
+                            <td>
+                                <a href="{{ url_for('update_cost_unit_route', id=unit[0]) }}">Edit</a>
+                            </td>
+                            <td>
+                                <a href="{{ url_for('delete_unit_route', id=unit[0]) }}" class="delete-link">Delete</a>
+                            </td>
+                        </tr>
+                        
+
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+        <br>
+        <br> 
+        <br>
+        <br> 
+        <br>
+        <br>        
+
+        <a href="{{ url_for('start_page') }}">Back to start page</a>
+        
+    </div>
+</body>
+</html>
+

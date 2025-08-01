@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Update Cost Unit</h1>
+        <form action="/update_cost_unit/{{ unit[0] }}" method="POST">
+            <input type="text" id="year" name="year" value="{{ unit[1] }}" required>
+            <input type="text" id="unit" name="unit" value="{{ unit[2] }}" required>
+            <input type="number" id="facilities" name="facilities" value="{{ unit[3] }}" required>
+            <input type="number" id="workforce" name="workforce" value="{{ unit[4] }}" required>
+            <input type="number" id="vehicles" name="vehicles" value="{{ unit[5] }}" required>
+            <button type="submit">Update Unit</button>
+        </form>
+        <a href="{{ url_for('business_unit_cost_watch') }}" class="back-link">Back to Units List</a>
+    </div>
+</body>
+</html>

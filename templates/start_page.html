@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align:left">Pricing Support System</h2>
+    
+        <div>
+            <p3 style="text-align:left">Systems needs moderation, please provide the right inputs into the database to return desired results.</p3>
+        </div>
+        <br>
+        <br>
+        <a href="{{ url_for('business_unit_cost_watch') }}">Business Unit Cost Data Entry</a>
+        <br>
+        <br>
+        <a href="{{ url_for('business_unit_cost_visualisation') }}">Business Unit Cost Visualisation</a>
+        <br>
+        <br>
+         <a href="{{ url_for('business_unit_revenue_watch') }}">Business Unit Revenue Data Entry</a>
+        <br>
+        <br>
+        <a href="{{ url_for('business_unit_revenue_visualisation') }}">Business Unit Revenue Visualisation</a>
+        <br>
+        <br>
+        <a href="{{ url_for('business_unit_cost_and_revenue_visualisation_with_revenue_alignment_indication') }}">Business Unit Cost and Revenue Visualisation with Revenue Alignment Indication</a>
+        <br>
+        <br>
+        <a href="{{ url_for('business_unit_gross_margin_visualisation_and_gross_profit') }}">Business Unit Gross Margin Visualisation and Gross Profit</a>
+        <br>
+        <br>
+        <a href="{{ url_for('business_unit_markup_visualisation_and_markup_stability') }}">Business Unit Gross Margin Visualisation and Markup Stability</a>
+
+
+
+    </div>
+</body>
+</html>
+
+

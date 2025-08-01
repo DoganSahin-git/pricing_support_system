@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+
+
+
+<body>
+    <div class="container">
+        <h1>Business Unit Gross Margin Visualisation and Gross Profit</h1>
+
+        <h2>Select Unit Cost and Revenue Scheme</h2>
+
+        <br>
+     
+        <form action="{{url_for('get_one_cost_and_revenue_unit_for_gross_profit')}}" method="POST">
+            <div class="custom-select">
+                <select name="unit">
+                <option value="">Please choose a unit that is available for visualisation:</option>
+                {% for element in array %}
+                <option value="{{ element }}">{{ element }}</option>
+                {% endfor %}
+                </select>
+
+            <button id="btn" type="submit">Select</button>
+
+            </div>
+
+        </form>
+
+        <br> 
+        <br>
+
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+            labels: {{ labels | safe }},
+            datasets: [{
+                label: 'Gross Margin',
+                data: {{ gross_margin | safe }},
+                borderWidth: 1
+            }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        </script>
+ 
+        <br> 
+        <br>
+
+        <div id="cost_table">
+
+        
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Gross Margin</th>
+                            <th>Gross Profit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for element in table_result %}
+                        
+                        <tr>
+                            <td>{{ element[0] }}</td>
+
+                            <td>{{ element[1] }}</td>
+                        
+                            <td>{{ element[2] }}&nbsp;€</td>
+                        
+                        </tr>
+                        
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+        </div>            
+
+        <br>
+        <br>  
+        <br>  
+        <br>          
+
+        <a href="{{ url_for('start_page') }}">Back to start page</a>
+
+        
+    
+
+
+    </div>
+
+
+
+</body>
+
+
+</html>
+

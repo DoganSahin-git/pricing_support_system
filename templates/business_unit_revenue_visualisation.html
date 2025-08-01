@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+
+<body>
+    <div class="container">
+        <h1>Business Unit Revenue Analysis</h1>
+
+        <h2>Select Unit Revenue Scheme</h2>
+
+        <br>
+     
+        <form action="{{url_for('get_one_revenue_unit')}}" method="POST">
+            <div class="custom-select">
+                <select name="unit">
+                <option value="">Please choose a unique unit:</option>
+                {% for element in array %}
+                <option value="{{ element[1] }}">{{ element[1] }}</option>
+                {% endfor %}
+                </select>
+
+            <button type="submit">Select</button>
+
+            </div>
+
+        </form>
+
+        <br> 
+        <br>
+
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+            labels: {{ labels | safe }},
+            datasets: [{
+                label: 'Revenues',
+                data: {{ values | safe }},
+                borderWidth: 1
+            }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        </script>
+ 
+        
+        <br> 
+        <br>
+
+        <div>
+
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Unit Total Revenue</th>
+                        
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for element in result %}
+                        
+                        <tr>
+                            <td>{{ element[0] }}</td>
+                        
+                        
+                            <td>{{ element[1] }}&nbsp;€</td>
+                        
+                        </tr>
+                        
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+        </div>   
+
+        <br>
+        <br>        
+
+        <a href="{{ url_for('start_page') }}">Back to start page</a>
+
+        
+    
+
+    </div>
+
+</body>
+</html>
+

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+
+<body>
+    <div class="container">
+        <h1>Business Unit Cost and Revenue Visualisation with Revenue Alignment Indication</h1>
+
+        <h2>Select Unit Cost and Revenue Scheme</h2>
+
+        <br>
+     
+        <form action="{{url_for('get_one_cost_and_revenue_unit')}}" method="POST">
+            <div class="custom-select">
+                <select name="unit">
+                <option value="">Please choose a unit that is available for visualisation:</option>
+                {% for element in array %}
+                <option value="{{ element }}">{{ element }}</option>
+                {% endfor %}
+                </select>
+
+            <button id="btn" type="submit">Select</button>
+
+            </div>
+
+        </form>
+
+        <br> 
+        <br>
+
+        <canvas id="myLineChart" width="380" height="180"></canvas>
+        
+        <script>
+        // data for showing the line chart
+        let labels = {{ labels | safe }};
+        let dataset1Data = {{ cost_result | safe }};
+        let dataset2Data = {{ revenue_result | safe }};
+
+        // Creating line chart
+        let ctx = 
+            document.getElementById('myLineChart').getContext('2d');
+        let myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Cost',
+                        data: dataset1Data,
+                        borderColor: 'blue',
+                        borderWidth: 1,
+                        fill: false,
+                    },
+                    {
+                        label: 'Revenue',
+                        data: dataset2Data,
+                        borderColor: 'green',
+                        borderWidth: 1,
+                        fill: false,
+                    },
+
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            font: {
+                                padding: 4,
+                                size: 20,
+                                weight: 'bold',
+                                family: 'Arial'
+                            },
+                            color: 'darkblue'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            font: {
+                                size: 20,
+                                weight: 'bold',
+                                family: 'Arial'
+                            },
+                            color: 'darkblue'
+                        },
+                        beginAtZero: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Values',
+                        }
+                    }
+                }
+            }
+        });
+        </script>
+ 
+        <br> 
+        <br>
+
+        <div>
+
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Unit Total Cost</th>
+                        <th>Unit Total Revenue</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for element in result %}
+                        
+                    <tr>
+                        <td>{{ element[0] }} </td>
+                        
+                        <td>{{ element[1] }}&nbsp;€</td>
+
+                        <td>{{ element[2] }}&nbsp;€</td>
+                        
+                    </tr>
+                        
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+            <br>
+            <br>
+
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Revenue Alignment Indication</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>{{ revenue_alignment }} </td>                        
+                    </tr>
+                        
+                </tbody>
+            </table>
+
+        </div>   
+                  
+
+        <br>
+        <br>  
+        <br>  
+        <br>          
+
+        
+        
+        <a href="{{ url_for('start_page') }}">Back to start page</a>
+
+        
+    
+
+
+    </div>
+
+
+
+</body>
+
+
+</html>
+
